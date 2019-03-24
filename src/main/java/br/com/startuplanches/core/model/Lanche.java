@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.dto.IngredienteDTO;
 import br.com.startuplanches.core.dto.LancheDTO;
 import br.com.startuplanches.core.entity.Ingrediente;
@@ -60,6 +61,7 @@ public class Lanche {
 	}
 	
 	public LancheDTO buildDTO() {
+		
 		LancheDTO lancheDTO = new LancheDTO();
 		lancheDTO.setId(id);
 		lancheDTO.setNome(nome);
@@ -76,13 +78,40 @@ public class Lanche {
 
 		IngredienteDTO ingredienteDTO = new IngredienteDTO();
 		Ingrediente ingrediente = ingredienteEntry.getKey();
+		ingredienteDTO.setId(ingrediente.getId());
 		ingredienteDTO.setNome(ingrediente.getNome());
 		ingredienteDTO.setPreco(ingrediente.getPreco());
 		ingredienteDTO.setQuantidade(ingredienteEntry.getValue());
 		return ingredienteDTO;
 	}
 	
-	//getters e setters
+	public static Lanche parseFromDTO(DetalhesLancheDTO detalhesLancheDTO) {
+
+		LancheDTO lancheDTO = detalhesLancheDTO.getLanche();
+		
+		Lanche lanche = new Lanche();
+		lanche.setId(lancheDTO.getId());
+		lanche.setNome(lancheDTO.getNome());
+		
+		Map<Ingrediente, Integer> ingredientes = lancheDTO.getIngredientes().stream()
+			.collect(Collectors.toMap(x -> convertToIngrediente(x), x -> x.getQuantidade()));
+		
+		lanche.setIngredientes(ingredientes);
+		
+		return lanche;
+	}
+	
+	private static Ingrediente convertToIngrediente(IngredienteDTO x) {
+
+		Ingrediente ingrediente = new Ingrediente();
+		ingrediente.setId(x.getId());
+		ingrediente.setNome(x.getNome());
+		ingrediente.setPreco(x.getPreco());
+		
+		return ingrediente;
+	}
+
+	//getters e setters	
 
 	public String getNome() {
 		return nome;
@@ -107,4 +136,5 @@ public class Lanche {
 	public void setIngredientes(Map<Ingrediente, Integer> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
+
 }

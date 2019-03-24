@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.dto.LancheDTO;
 import br.com.startuplanches.core.dto.PromocaoAplicadaDTO;
+import br.com.startuplanches.core.entity.Ingrediente;
 import br.com.startuplanches.core.model.Lanche;
 
 @Service
@@ -52,4 +53,39 @@ public class LancheService {
 		
 		return detalhesLancheDTO;
 	}
+
+	public DetalhesLancheDTO adicionarIngrediente(DetalhesLancheDTO detalhesLancheDTO, Long ingredienteId) {
+
+		Lanche lanche = Lanche.parseFromDTO(detalhesLancheDTO);
+		
+		Ingrediente ingrediente = getIngredienteById(ingredienteId);
+		
+		lanche.adicionaIngrediente(ingrediente);
+		
+		return computaDetalhesLanche(lanche);
+	}
+
+	private Ingrediente getIngredienteById(Long ingredienteId) {
+
+		Ingrediente ingrediente = new Ingrediente();
+    	ingrediente.setId(1L);
+    	ingrediente.setNome("Queijo");
+    	ingrediente.setPreco(1D);
+		return ingrediente;
+	}
+
+	public DetalhesLancheDTO computaDetalhesLancheById(String lancheId) {
+		
+    	Lanche lanche = new Lanche();
+    	lanche.setId(1L);
+    	lanche.setNome("Id: " + lancheId);
+    	Ingrediente ingrediente = new Ingrediente();
+    	ingrediente.setId(1L);
+    	ingrediente.setNome("Queijo");
+    	ingrediente.setPreco(1D);
+    	lanche.adicionaIngrediente(ingrediente, 3);
+    	
+    	return computaDetalhesLanche(lanche);
+	}
+
 }
