@@ -15,15 +15,16 @@ import br.com.startuplanches.core.model.Lanche;
 import br.com.startuplanches.core.promocoes.MuitoQueijo;
 import br.com.startuplanches.core.promocoes.Promocao;
 import br.com.startuplanches.core.promocoes.TudoPelaMetadeDoPreco;
+import br.com.startuplanches.core.service.LancheService;
 import br.com.startuplanches.core.service.PromocaoService;
 
 /**
  * Existe uma exceção à regra para o cálculo de preço, quando o lanche pertencer
  * à uma promoção. Cada promoção tem sua regra.
  */
-public class PromocoesTest {
+public class LancheServiceTest {
 
-	PromocaoService cardapioService;
+	LancheService lancheService;
 	
 	private static final double DELTA = 0.000_000_001;
 
@@ -46,7 +47,8 @@ public class PromocoesTest {
 		
 		promocoes = Arrays.asList(promocaoTudoPelaMetadeDoPreco, promocaoMuitoQueijo);
 		
-		cardapioService = new PromocaoService(promocoes);
+		PromocaoService promocaoService = new PromocaoService(promocoes);
+		lancheService = new LancheService(promocaoService );
 	}
 
 	@Test
@@ -54,7 +56,7 @@ public class PromocoesTest {
 		
 		Lanche lanche = new Lanche();
 		
-		DetalhesLancheDTO detalhesLanches = cardapioService.computaDetalhesLanche(lanche);
+		DetalhesLancheDTO detalhesLanches = lancheService.computaDetalhesLanche(lanche);
 		
 		assertEquals(0, detalhesLanches.getPromocoesAplicadas().size());
 				
@@ -67,10 +69,10 @@ public class PromocoesTest {
 		Lanche lanche = new Lanche();
 		lanche.adicionaIngrediente(queijo, 2);
 		
-		DetalhesLancheDTO detalhesLanches = cardapioService.computaDetalhesLanche(lanche);
+		DetalhesLancheDTO detalhesLanches = lancheService.computaDetalhesLanche(lanche);
 		
 		assertEquals(1, detalhesLanches.getPromocoesAplicadas().size());
-		assertTrue(detalhesLanches.contemPromocao(promocaoTudoPelaMetadeDoPreco));
+		assertTrue(contemPromocao(detalhesLanches, promocaoTudoPelaMetadeDoPreco));
 		
 		assertEquals(1, detalhesLanches.getPrecoFinal(), DELTA);
 	}
@@ -81,13 +83,18 @@ public class PromocoesTest {
 		Lanche lanche = new Lanche();
 		lanche.adicionaIngrediente(queijo, 8);
 		
-		DetalhesLancheDTO detalhesLanches = cardapioService.computaDetalhesLanche(lanche);
+		DetalhesLancheDTO detalhesLanches = lancheService.computaDetalhesLanche(lanche);
 		
 		assertEquals(2, detalhesLanches.getPromocoesAplicadas().size());
-		assertTrue(detalhesLanches.contemPromocao(promocaoTudoPelaMetadeDoPreco));
-		assertTrue(detalhesLanches.contemPromocao(promocaoMuitoQueijo));
+		assertTrue(contemPromocao(detalhesLanches, promocaoTudoPelaMetadeDoPreco));
+		assertTrue(contemPromocao(detalhesLanches, promocaoMuitoQueijo));
 		
 		assertEquals(2, detalhesLanches.getPrecoFinal(), DELTA);
 	}
 
+	public boolean contemPromocao(DetalhesLancheDTO detalhesLanches, Promocao promocaoTudoPelaMetadeDoPreco) {
+		
+		return detalhesLanches.getPromocoesAplicadas().stream()
+				.anyMatch(x -> x.getNome().equals(promocaoTudoPelaMetadeDoPreco.getNome()));
+	}
 }

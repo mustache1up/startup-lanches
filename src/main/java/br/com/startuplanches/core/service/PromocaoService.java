@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.dto.PromocaoAplicadaDTO;
 import br.com.startuplanches.core.model.Lanche;
 import br.com.startuplanches.core.promocoes.Promocao;
@@ -48,19 +47,5 @@ public class PromocaoService {
 		}
 		
 		return promocoesAplicadas;
-	}
-
-	public DetalhesLancheDTO computaDetalhesLanche(Lanche lanche) {
-
-		List<PromocaoAplicadaDTO> promocoesAplicadas = aplicaPromocoes(lanche);
-		Double totalDescontoPromocoes = promocoesAplicadas.stream().mapToDouble(x -> x.getDesconto()).sum();
-		double precoFinal = lanche.precoBase() - totalDescontoPromocoes;
-		
-		DetalhesLancheDTO detalhesLancheDTO = new DetalhesLancheDTO();
-		detalhesLancheDTO.setPromocoesAplicadas(promocoesAplicadas);
-		detalhesLancheDTO.setLanche(lanche.buildDTO());
-		detalhesLancheDTO.setPrecoFinal(precoFinal);
-		
-		return detalhesLancheDTO;
 	}
 }

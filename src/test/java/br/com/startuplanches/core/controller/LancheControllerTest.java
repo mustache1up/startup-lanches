@@ -1,10 +1,9 @@
 package br.com.startuplanches.core.controller;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,6 +18,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.dto.IngredienteDTO;
+import br.com.startuplanches.core.dto.LancheDTO;
 import br.com.startuplanches.core.dto.PromocaoAplicadaDTO;
 
 @RunWith(SpringRunner.class)
@@ -31,6 +31,22 @@ public class LancheControllerTest {
 
 	@Autowired
 	private TestRestTemplate testRestTemplate;
+	
+	@Test
+	public void endpointLanchesSemIdDeveRetornarListaDeOpcoesDoCardapio() throws Exception {
+		
+		ResponseEntity<LancheDTO[]> entity = this.testRestTemplate
+				.getForEntity("http://localhost:" + this.port + "/api/lanches/", LancheDTO[].class);
+		
+		assertEquals(HttpStatus.OK, entity.getStatusCode());
+		List<LancheDTO> lanches = Arrays.asList(entity.getBody());
+		
+		lanches.sort((x, y) -> x.getNome().compareToIgnoreCase(y.getNome()));
+		
+		assertEquals(2, lanches.size());
+		assertEquals("X-Bacon", lanches.get(0).getNome());
+		assertEquals("X-Salada", lanches.get(1).getNome());
+	}
 
 	@Test
 	public void endpointLanchesComIdDeveRetornarDetalhesDoLancheDeMesmoId() throws Exception {

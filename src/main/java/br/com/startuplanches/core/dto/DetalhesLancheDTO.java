@@ -3,8 +3,6 @@ package br.com.startuplanches.core.dto;
 import java.util.ArrayList;
 import java.util.List;
 
-import br.com.startuplanches.core.promocoes.Promocao;
-
 public class DetalhesLancheDTO {
 
 	private LancheDTO lanche;
@@ -13,12 +11,6 @@ public class DetalhesLancheDTO {
 	
 	public DetalhesLancheDTO() {
 		promocoesAplicadas = new ArrayList<>();
-	}
-	
-	public boolean contemPromocao(Promocao promocaoTudoPelaMetadeDoPreco) {
-		
-		return promocoesAplicadas.stream()
-				.anyMatch(x -> x.getNome().equals(promocaoTudoPelaMetadeDoPreco.getNome()));
 	}
 	
 	// getters e setters:
