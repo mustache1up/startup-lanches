@@ -6,35 +6,24 @@ var mainApp = new Vue({
   },
   mounted: function () {
         
-      var self = this;
-        
-//        $.get("/api/opcoesCardapio")
-//        .done(data => {
-//            self.channels = data;
-//        })
-//        .fail(error => {
-//            console.log(error);
-//        });
+      $.get("/api/lanches/")
+      .done(data => {
+          this.opcoesCardapio = data;
+      })
+      .fail(error => {
+          console.log(error);
+      });
       
-      this.opcoesCardapio = [{id:1, nome:"X-Bacon"}];
-     
   },
   methods: {
 	mostraDetalhesLanche: function(opcaoId) {
    
-//      $.get("/api/opcoesCardapio/" + opcaoId, 
-//        data => this.atualizaDetalhesLanche(data))
-//      .fail(error => {
-//        console.log(error);
-//      });
-		
-		if(!opcaoId) {
-			
-			opcaoId = {id: -1};
-		}
-		
-		this.detalhesLanche = {id: opcaoId};
-      
+      $.get("/api/lanches/" + opcaoId, 
+        data => this.atualizaDetalhesLanche(data))
+      .fail(error => {
+        console.log(error);
+      });
+     
     },
     atualizaDetalhesLanche : function(data) {
     

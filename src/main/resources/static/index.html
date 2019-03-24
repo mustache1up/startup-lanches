@@ -10,7 +10,7 @@
   <div id="main-app">
     <h1>Startup Lanche</h1>
     
-    <div v-if="detalhesLanche.id == null" id="opcoes-cardapio">
+    <div v-if="detalhesLanche.lanche == null" id="opcoes-cardapio">
 	  <p>Opções do Cardápio</p>
 	  <ul>
 	    <li v-for="opcao in opcoesCardapio">
@@ -22,13 +22,19 @@
     <a href="#" @click="mostraDetalhesLanche()">Personalizar lanche</a>
     </div>
     
-    <div v-if="detalhesLanche.id != null" id="detalhes-lanche">
+    <div v-if="detalhesLanche.lanche != null" id="detalhes-lanche">
       <p >Detalhes do Lanche</p>
-      Id: {{ detalhesLanche.id }}
+      Id: {{ detalhesLanche.lanche.id }}
       <br />
-      Nome: {{ detalhesLanche.name }}
+      Nome: {{ detalhesLanche.lanche.nome }}
       <br />
-      Ingredientes: {{ detalhesLanche.status }}
+      Ingredientes:
+      <br />
+      <ul>
+        <li v-for="ingrediente in detalhesLanche.lanche.ingredientes">
+          Nome: {{ ingrediente.nome }} - Preco: {{ ingrediente.preco }}
+        </li>
+      </ul>
       <br />
       Adicionar ingrediente!
       <br />
