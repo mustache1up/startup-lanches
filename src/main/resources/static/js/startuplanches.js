@@ -16,7 +16,7 @@ var mainApp = new Vue({
 //            console.log(error);
 //        });
       
-      this.opcoesCardapio = [{id:1, nome:"X-Bacon"}]
+      this.opcoesCardapio = [{id:1, nome:"X-Bacon"}];
      
   },
   methods: {
@@ -28,7 +28,12 @@ var mainApp = new Vue({
 //        console.log(error);
 //      });
 		
-		this.detalhesLanche = {id: 1}
+		if(!opcaoId) {
+			
+			opcaoId = {id: -1};
+		}
+		
+		this.detalhesLanche = {id: opcaoId};
       
     },
     atualizaDetalhesLanche : function(data) {

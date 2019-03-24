@@ -10,7 +10,7 @@
   <div id="main-app">
     <h1>Startup Lanche</h1>
     
-    <div v-if="detalhesLanche.id == null" id="detalhes-lanche">
+    <div v-if="detalhesLanche.id == null" id="opcoes-cardapio">
 	  <p>Opções do Cardápio</p>
 	  <ul>
 	    <li v-for="opcao in opcoesCardapio">
@@ -19,6 +19,7 @@
 	      </a>
 	    </li>
 	  </ul>
+    <a href="#" @click="mostraDetalhesLanche()">Personalizar lanche</a>
     </div>
     
     <div v-if="detalhesLanche.id != null" id="detalhes-lanche">
