@@ -39,7 +39,11 @@ public class PromocaoService {
 				continue;
 			}
 			
-			promocoesAplicadas.add(new PromocaoAplicadaDTO(promocao, desconto));
+			PromocaoAplicadaDTO promocaoAplicadaDTO = new PromocaoAplicadaDTO();
+			promocaoAplicadaDTO.setNome(promocao.getNome());
+			promocaoAplicadaDTO.setDesconto(desconto);
+			
+			promocoesAplicadas.add(promocaoAplicadaDTO);
 			
 		}
 		
@@ -54,7 +58,7 @@ public class PromocaoService {
 		
 		DetalhesLancheDTO detalhesLancheDTO = new DetalhesLancheDTO();
 		detalhesLancheDTO.setPromocoesAplicadas(promocoesAplicadas);
-		detalhesLancheDTO.setLanche(lanche);
+		detalhesLancheDTO.setLanche(lanche.buildDTO());
 		detalhesLancheDTO.setPrecoFinal(precoFinal);
 		
 		return detalhesLancheDTO;

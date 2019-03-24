@@ -1,23 +1,25 @@
 package br.com.startuplanches.core.model;
 
-import br.com.startuplanches.core.promocoes.Promocao;
-
 public class PromocaoAplicadaDTO {
 
-	private Promocao promocao;
+	private String nome;
 	private Double desconto;
 	
-	public PromocaoAplicadaDTO(Promocao promocao, Double desconto) {
+	//getters e setters:
 
-		this.promocao = promocao;
-		this.desconto = desconto;
+	public String getNome() {
+		return nome;
 	}
 
-	public Promocao getPromocao() {
-		return promocao;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-	
+
 	public Double getDesconto() {
 		return desconto;
+	}
+
+	public void setDesconto(Double desconto) {
+		this.desconto = desconto;
 	}
 }

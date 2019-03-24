@@ -7,7 +7,7 @@ import br.com.startuplanches.core.promocoes.Promocao;
 
 public class DetalhesLancheDTO {
 
-	private Lanche lanche;
+	private LancheDTO lanche;
 	private List<PromocaoAplicadaDTO> promocoesAplicadas;
 	private Double precoFinal;
 	
@@ -18,16 +18,16 @@ public class DetalhesLancheDTO {
 	public boolean contemPromocao(Promocao promocaoTudoPelaMetadeDoPreco) {
 		
 		return promocoesAplicadas.stream()
-				.anyMatch(x -> x.getPromocao().equals(promocaoTudoPelaMetadeDoPreco));
+				.anyMatch(x -> x.getNome().equals(promocaoTudoPelaMetadeDoPreco.getNome()));
 	}
 	
 	// getters e setters:
 
-	public Lanche getLanche() {
+	public LancheDTO getLanche() {
 		return lanche;
 	}
 
-	public void setLanche(Lanche lanche) {
+	public void setLanche(LancheDTO lanche) {
 		this.lanche = lanche;
 	}
 
