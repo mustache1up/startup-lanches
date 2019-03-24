@@ -1,15 +1,9 @@
 package br.com.startuplanches.core.model;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
-import br.com.startuplanches.core.dto.DetalhesLancheDTO;
-import br.com.startuplanches.core.dto.IngredienteDTO;
-import br.com.startuplanches.core.dto.LancheDTO;
 import br.com.startuplanches.core.entity.Ingrediente;
 
 public class Lanche {
@@ -60,57 +54,6 @@ public class Lanche {
 				.sum();
 	}
 	
-	public LancheDTO buildDTO() {
-		
-		LancheDTO lancheDTO = new LancheDTO();
-		lancheDTO.setId(id);
-		lancheDTO.setNome(nome);
-		
-		List<IngredienteDTO> ingredientesDTO = ingredientes.entrySet().stream()
-				.map(ingrediente -> convertToIngredienteDTO(ingrediente))
-				.collect(Collectors.toList());
-		lancheDTO.setIngredientes(ingredientesDTO);
-		
-		return lancheDTO;
-	}
-
-	private IngredienteDTO convertToIngredienteDTO(Entry<Ingrediente, Integer> ingredienteEntry) {
-
-		IngredienteDTO ingredienteDTO = new IngredienteDTO();
-		Ingrediente ingrediente = ingredienteEntry.getKey();
-		ingredienteDTO.setId(ingrediente.getId());
-		ingredienteDTO.setNome(ingrediente.getNome());
-		ingredienteDTO.setPreco(ingrediente.getPreco());
-		ingredienteDTO.setQuantidade(ingredienteEntry.getValue());
-		return ingredienteDTO;
-	}
-	
-	public static Lanche parseFromDTO(DetalhesLancheDTO detalhesLancheDTO) {
-
-		LancheDTO lancheDTO = detalhesLancheDTO.getLanche();
-		
-		Lanche lanche = new Lanche();
-		lanche.setId(lancheDTO.getId());
-		lanche.setNome(lancheDTO.getNome());
-		
-		Map<Ingrediente, Integer> ingredientes = lancheDTO.getIngredientes().stream()
-			.collect(Collectors.toMap(x -> convertToIngrediente(x), x -> x.getQuantidade()));
-		
-		lanche.setIngredientes(ingredientes);
-		
-		return lanche;
-	}
-	
-	private static Ingrediente convertToIngrediente(IngredienteDTO x) {
-
-		Ingrediente ingrediente = new Ingrediente();
-		ingrediente.setId(x.getId());
-		ingrediente.setNome(x.getNome());
-		ingrediente.setPreco(x.getPreco());
-		
-		return ingrediente;
-	}
-
 	//getters e setters	
 
 	public String getNome() {

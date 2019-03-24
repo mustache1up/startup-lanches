@@ -2,6 +2,8 @@ package br.com.startuplanches.core.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,12 +17,14 @@ import br.com.startuplanches.core.model.Lanche;
 @Service
 public class LancheService {
 	
-	PromocaoService promocaoService;
+	private PromocaoService promocaoService;
+	private IngredienteService ingredienteService;
 
 	@Autowired
-	public LancheService(PromocaoService promocaoService) {
+	public LancheService(PromocaoService promocaoService, IngredienteService ingredienteService) {
 		
 		this.promocaoService = promocaoService;
+		this.ingredienteService = ingredienteService;
 	}
 
 	public List<LancheDTO> todasOpcoesCardapio() {
@@ -48,7 +52,7 @@ public class LancheService {
 		
 		DetalhesLancheDTO detalhesLancheDTO = new DetalhesLancheDTO();
 		detalhesLancheDTO.setPromocoesAplicadas(promocoesAplicadas);
-		detalhesLancheDTO.setLanche(lanche.buildDTO());
+		detalhesLancheDTO.setLanche(LancheDTO.build(lanche));
 		detalhesLancheDTO.setPrecoFinal(precoFinal);
 		
 		return detalhesLancheDTO;
@@ -56,22 +60,13 @@ public class LancheService {
 
 	public DetalhesLancheDTO adicionarIngrediente(DetalhesLancheDTO detalhesLancheDTO, Long ingredienteId) {
 
-		Lanche lanche = Lanche.parseFromDTO(detalhesLancheDTO);
+		Lanche lanche = parseFromDTO(detalhesLancheDTO);
 		
-		Ingrediente ingrediente = getIngredienteById(ingredienteId);
+		Ingrediente ingrediente = ingredienteService.getIngredienteById(ingredienteId);
 		
 		lanche.adicionaIngrediente(ingrediente);
 		
 		return computaDetalhesLanche(lanche);
-	}
-
-	private Ingrediente getIngredienteById(Long ingredienteId) {
-
-		Ingrediente ingrediente = new Ingrediente();
-    	ingrediente.setId(1L);
-    	ingrediente.setNome("Queijo");
-    	ingrediente.setPreco(1D);
-		return ingrediente;
 	}
 
 	public DetalhesLancheDTO computaDetalhesLancheById(String lancheId) {
@@ -79,13 +74,26 @@ public class LancheService {
     	Lanche lanche = new Lanche();
     	lanche.setId(1L);
     	lanche.setNome("Id: " + lancheId);
-    	Ingrediente ingrediente = new Ingrediente();
-    	ingrediente.setId(1L);
-    	ingrediente.setNome("Queijo");
-    	ingrediente.setPreco(1D);
+    	Ingrediente ingrediente = ingredienteService.getIngredienteById(1L);
     	lanche.adicionaIngrediente(ingrediente, 3);
     	
     	return computaDetalhesLanche(lanche);
 	}
+	
+	
+	public Lanche parseFromDTO(DetalhesLancheDTO detalhesLancheDTO) {
 
+		LancheDTO lancheDTO = detalhesLancheDTO.getLanche();
+		
+		Lanche lanche = new Lanche();
+		lanche.setId(lancheDTO.getId());
+		lanche.setNome(lancheDTO.getNome());
+		
+		Map<Ingrediente, Integer> ingredientes = lancheDTO.getIngredientes().stream()
+			.collect(Collectors.toMap(x -> ingredienteService.getIngredienteById(x.getId()), x -> x.getQuantidade()));
+		
+		lanche.setIngredientes(ingredientes);
+		
+		return lanche;
+	}
 }

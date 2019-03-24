@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.dto.LancheDTO;
-import br.com.startuplanches.core.entity.Ingrediente;
-import br.com.startuplanches.core.model.Lanche;
 import br.com.startuplanches.core.service.LancheService;
 
 @RestController

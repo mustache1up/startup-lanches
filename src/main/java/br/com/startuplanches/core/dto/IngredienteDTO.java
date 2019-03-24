@@ -1,5 +1,7 @@
 package br.com.startuplanches.core.dto;
 
+import br.com.startuplanches.core.entity.Ingrediente;
+
 public class IngredienteDTO {
 
 	private Long id;
@@ -7,6 +9,16 @@ public class IngredienteDTO {
 	private Double preco;
 	private Integer quantidade;
 
+	public static IngredienteDTO build(Ingrediente ingrediente, Integer quantidade) {
+		
+		IngredienteDTO ingredienteDTO = new IngredienteDTO();
+		ingredienteDTO.setId(ingrediente.getId());
+		ingredienteDTO.setNome(ingrediente.getNome());
+		ingredienteDTO.setPreco(ingrediente.getPreco());
+		ingredienteDTO.setQuantidade(quantidade);
+		return ingredienteDTO;
+	}
+	
 	//getters e setters:
 	
 	public Long getId() {

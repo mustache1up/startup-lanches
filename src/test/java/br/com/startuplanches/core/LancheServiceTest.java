@@ -48,7 +48,7 @@ public class LancheServiceTest {
 		promocoes = Arrays.asList(promocaoTudoPelaMetadeDoPreco, promocaoMuitoQueijo);
 		
 		PromocaoService promocaoService = new PromocaoService(promocoes);
-		lancheService = new LancheService(promocaoService );
+		lancheService = new LancheService(promocaoService, null);
 	}
 
 	@Test

@@ -1,10 +1,17 @@
 package br.com.startuplanches.core.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Ingrediente {
 
+	@Id
 	private Long id;
 	private String nome;
 	private Double preco;
+
+	//getters, setters, equals, hashcode:
 	
 	public Long getId() {
 		return id;
