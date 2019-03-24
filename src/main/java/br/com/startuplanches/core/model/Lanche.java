@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import br.com.startuplanches.core.dto.IngredienteDTO;
+import br.com.startuplanches.core.dto.LancheDTO;
 import br.com.startuplanches.core.entity.Ingrediente;
 
 public class Lanche {

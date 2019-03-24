@@ -9,8 +9,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.entity.Ingrediente;
-import br.com.startuplanches.core.model.DetalhesLancheDTO;
 import br.com.startuplanches.core.model.Lanche;
 import br.com.startuplanches.core.promocoes.MuitoQueijo;
 import br.com.startuplanches.core.promocoes.Promocao;

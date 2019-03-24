@@ -1,4 +1,4 @@
-package br.com.startuplanches.core.model;
+package br.com.startuplanches.core.dto;
 
 public class IngredienteDTO {
 

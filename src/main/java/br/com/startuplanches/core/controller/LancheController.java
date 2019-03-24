@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.startuplanches.core.dto.DetalhesLancheDTO;
 import br.com.startuplanches.core.entity.Ingrediente;
-import br.com.startuplanches.core.model.DetalhesLancheDTO;
 import br.com.startuplanches.core.model.Lanche;
 import br.com.startuplanches.core.service.PromocaoService;
 

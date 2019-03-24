@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.startuplanches.core.model.DetalhesLancheDTO;
+import br.com.startuplanches.core.dto.DetalhesLancheDTO;
+import br.com.startuplanches.core.dto.PromocaoAplicadaDTO;
 import br.com.startuplanches.core.model.Lanche;
-import br.com.startuplanches.core.model.PromocaoAplicadaDTO;
 import br.com.startuplanches.core.promocoes.Promocao;
 
 @Service

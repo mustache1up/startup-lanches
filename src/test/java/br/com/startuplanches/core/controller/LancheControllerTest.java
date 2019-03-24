@@ -17,9 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import br.com.startuplanches.core.model.DetalhesLancheDTO;
-import br.com.startuplanches.core.model.IngredienteDTO;
-import br.com.startuplanches.core.model.PromocaoAplicadaDTO;
+import br.com.startuplanches.core.dto.DetalhesLancheDTO;
+import br.com.startuplanches.core.dto.IngredienteDTO;
+import br.com.startuplanches.core.dto.PromocaoAplicadaDTO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
