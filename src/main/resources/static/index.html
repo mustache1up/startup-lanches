@@ -15,24 +15,20 @@
 	  <ul>
 	    <li v-for="opcao in opcoesCardapio">
 	      <a href="#" @click="mostraDetalhesLanche(opcao.id)"> 
-	        {{ opcao.id }} - {{ opcao.nome }} 
+	        {{ opcao.nome }} 
 	      </a>
 	    </li>
 	  </ul>
-    <a href="#" @click="mostraDetalhesLanche()">Personalizar lanche</a>
+    <a href="#" @click="mostraDetalhesLanche('criar')">Criar lanche do zero</a>
     </div>
     
     <div v-if="detalhesLanche.lanche != null" id="detalhes-lanche">
       <p >Detalhes do Lanche</p>
-      Id: {{ detalhesLanche.lanche.id }}
-      <br />
-      Nome: {{ detalhesLanche.lanche.nome }}
-      <br />
       Ingredientes:
       <br />
       <ul>
         <li v-for="ingrediente in detalhesLanche.lanche.ingredientes">
-          Nome: {{ ingrediente.nome }} - Preco: {{ ingrediente.preco }}
+          {{ ingrediente.quantidade }} {{ ingrediente.nome }}
         </li>
       </ul>
       <br />
