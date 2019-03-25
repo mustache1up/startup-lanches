@@ -2,7 +2,9 @@ var mainApp = new Vue({
   el: '#main-app',
   data: {
 	opcoesCardapio: [],
-	detalhesLanche: {}
+	detalhesLanche: {},
+	ingredientes: [],
+	ingredienteSelecionado: null
   },
   mounted: function () {
         
@@ -12,6 +14,14 @@ var mainApp = new Vue({
       })
       .fail(error => {
           console.log(error);
+      });
+      
+      $.get("/api/ingredientes/")
+      .done(data => {
+    	  this.ingredientes = data;
+      })
+      .fail(error => {
+    	  console.log(error);
       });
       
   },
@@ -48,6 +58,11 @@ var mainApp = new Vue({
     limpaDetalhesLanche : function() {
     	
       this.detalhesLanche = {};
+    }
+  },
+  filters: {
+	monetario : function(decimal) {
+        return 'R$ ' + decimal.toFixed(2).replace('.', ',');
     }
   }
 })

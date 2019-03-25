@@ -31,18 +31,26 @@
           {{ ingrediente.quantidade }} {{ ingrediente.nome }}
         </li>
       </ul>
+      Selecione um ingrediente para adicionar:
+      <select v-model="ingredienteSelecionado">
+        <option v-for="ingrediente in ingredientes" :value="ingrediente">{{ ingrediente.nome }}</option>
+      </select>
+      <span v-if="ingredienteSelecionado != null">
+      	<a href="#" @click="adicionarIngrediente(ingredienteSelecionado.id)"> Adicionar!</a>
+      </span>
       <br />
-      <a href="#" @click="adicionarIngrediente(1)">Adicionar ingrediente de Id = 1!</a>
       <br />
-      Promoções aplicadas:
+      <div  v-if="detalhesLanche.promocoesAplicadas.length > 0">
+	    Promoções aplicadas:
+	    <br />
+	    <ul>
+	      <li v-for="promocao in detalhesLanche.promocoesAplicadas">
+	        {{ promocao.nome }} - Desconto: {{ promocao.desconto | monetario }}
+	      </li>
+	    </ul>
+	  </div>
+      Preço do lanche: {{ detalhesLanche.precoFinal | monetario }}
       <br />
-      <ul>
-        <li v-for="promocao in detalhesLanche.promocoesAplicadas">
-          Nome: {{ promocao.nome }} - Desconto: {{ promocao.desconto }}
-        </li>
-      </ul>
-      <br />
-      Preço do lanche: {{ detalhesLanche.precoFinal }}
       <br />
       <a href="#" @click="limpaDetalhesLanche()">Voltar ao início</a>
     </div>
