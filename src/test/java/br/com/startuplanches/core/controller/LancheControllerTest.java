@@ -74,8 +74,8 @@ public class LancheControllerTest {
 
         assertEquals(1, promocoesAplicadas.size());
         assertEquals("Muito Queijo", promocoesAplicadas.get(0).getNome());
-        assertEquals(1, promocoesAplicadas.get(0).getDesconto().doubleValue(), 0);
+        assertEquals(1.5, promocoesAplicadas.get(0).getDesconto().doubleValue(), 0);
         
-        assertEquals(2, detalhesLancheDTO.getPrecoFinal().doubleValue(), 0);
+        assertEquals(3, detalhesLancheDTO.getPrecoFinal().doubleValue(), 0);
 	}
 }

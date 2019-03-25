@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.startuplanches.core.dto.DetalhesLancheDTO;
-import br.com.startuplanches.core.dto.LancheDTO;
+import br.com.startuplanches.core.dto.ItemCardapioDTO;
 import br.com.startuplanches.core.service.LancheService;
 
 @RestController
@@ -20,9 +20,9 @@ public class LancheController {
 	private LancheService lancheService;
 	
     @GetMapping("/api/lanches/")
-    public List<LancheDTO> opcoesCardapio() {
+    public List<ItemCardapioDTO> todosItensCardapio() {
     	
-		return lancheService.todasOpcoesCardapio();
+		return lancheService.todosItensCardapio();
     }
     
     @PostMapping("/api/lanches/adicionar-ingrediente/{ingredienteId}")
@@ -31,9 +31,9 @@ public class LancheController {
     	return lancheService.adicionarIngrediente(detalhesLancheDTO, ingredienteId);
     }
     
-    @GetMapping("/api/lanches/{lancheId}")
-    public DetalhesLancheDTO opcaoCardapio(@PathVariable String lancheId) {
+    @GetMapping("/api/lanches/{itemCardapioId}")
+    public DetalhesLancheDTO itemCardapio(@PathVariable Long itemCardapioId) {
     	
-    	return lancheService.computaDetalhesLancheById(lancheId);
+    	return lancheService.computaDetalhesLancheById(itemCardapioId);
     }
 }

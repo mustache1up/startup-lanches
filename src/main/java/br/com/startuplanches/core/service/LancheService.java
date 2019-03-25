@@ -1,6 +1,5 @@
 package br.com.startuplanches.core.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.startuplanches.core.dto.DetalhesLancheDTO;
+import br.com.startuplanches.core.dto.ItemCardapioDTO;
 import br.com.startuplanches.core.dto.LancheDTO;
 import br.com.startuplanches.core.dto.PromocaoAplicadaDTO;
 import br.com.startuplanches.core.entity.Ingrediente;
+import br.com.startuplanches.core.entity.ItemCardapio;
 import br.com.startuplanches.core.model.Lanche;
 
 @Service
@@ -19,29 +20,25 @@ public class LancheService {
 	
 	private PromocaoService promocaoService;
 	private IngredienteService ingredienteService;
+	private CardapioService cardapioService;
 
 	@Autowired
-	public LancheService(PromocaoService promocaoService, IngredienteService ingredienteService) {
+	public LancheService(PromocaoService promocaoService, IngredienteService ingredienteService, CardapioService cardapioService) {
 		
 		this.promocaoService = promocaoService;
 		this.ingredienteService = ingredienteService;
+		this.cardapioService = cardapioService;
 	}
 
-	public List<LancheDTO> todasOpcoesCardapio() {
+	public List<ItemCardapioDTO> todosItensCardapio() {
 		
-		List<LancheDTO> todasOpcoesCardapio = new ArrayList<>();
+		List<ItemCardapio> todosItensCardapio = cardapioService.todosItensCardapio();
 		
-		LancheDTO lanche1 = new LancheDTO();
-		lanche1.setId(1L);
-		lanche1.setNome("X-Bacon");
-		todasOpcoesCardapio.add(lanche1);
+		List<ItemCardapioDTO> todosItensCardapioDTO = todosItensCardapio.stream()
+			.map(x -> ItemCardapioDTO.build(x))
+			.collect(Collectors.toList());
 		
-		LancheDTO lanche2 = new LancheDTO();
-		lanche2.setId(2L);
-		lanche2.setNome("X-Salada");
-		todasOpcoesCardapio.add(lanche2);
-		
-		return todasOpcoesCardapio;
+		return todosItensCardapioDTO;
 	}
 
 	public DetalhesLancheDTO computaDetalhesLanche(Lanche lanche) {
@@ -60,7 +57,7 @@ public class LancheService {
 
 	public DetalhesLancheDTO adicionarIngrediente(DetalhesLancheDTO detalhesLancheDTO, Long ingredienteId) {
 
-		Lanche lanche = parseFromDTO(detalhesLancheDTO);
+		Lanche lanche = parseLancheFromDTO(detalhesLancheDTO);
 		
 		Ingrediente ingrediente = ingredienteService.getIngredienteById(ingredienteId);
 		
@@ -69,19 +66,32 @@ public class LancheService {
 		return computaDetalhesLanche(lanche);
 	}
 
-	public DetalhesLancheDTO computaDetalhesLancheById(String lancheId) {
+	public DetalhesLancheDTO computaDetalhesLancheById(Long itemCardapioId) {
 		
-    	Lanche lanche = new Lanche();
-    	lanche.setId(1L);
-    	lanche.setNome("Id: " + lancheId);
-    	Ingrediente ingrediente = ingredienteService.getIngredienteById(1L);
-    	lanche.adicionaIngrediente(ingrediente, 3);
+    	ItemCardapio itemCardapio = cardapioService.getItemCardapioById(itemCardapioId);
     	
+    	Lanche lanche = parseLancheFromItemCardapio(itemCardapio);
+		
     	return computaDetalhesLanche(lanche);
 	}
 	
-	
-	public Lanche parseFromDTO(DetalhesLancheDTO detalhesLancheDTO) {
+	private Lanche parseLancheFromItemCardapio(ItemCardapio itemCardapio) {
+		
+		Lanche lanche = new Lanche();
+		lanche.setId(itemCardapio.getId());
+		lanche.setNome(itemCardapio.getNome());
+		
+		Map<Ingrediente, Integer> ingredientes;
+		ingredientes = itemCardapio.getIngredientesItemCardapio().stream()
+				.collect(Collectors.toMap(x -> ingredienteService.getIngredienteById(x.getIngrediente().getId()), x -> x.getQuantidade()));
+		
+		lanche.setIngredientes(ingredientes);
+		
+		return lanche;
+	}
+
+	//TODO merge com metodo parseLancheFromItemCardapio
+	public Lanche parseLancheFromDTO(DetalhesLancheDTO detalhesLancheDTO) {
 
 		LancheDTO lancheDTO = detalhesLancheDTO.getLanche();
 		
