@@ -14,8 +14,6 @@ public class LancheDTO {
 	public static LancheDTO build(Lanche lanche) {
 		
 		LancheDTO lancheDTO = new LancheDTO();
-		lancheDTO.setId(lanche.getId());
-		lancheDTO.setNome(lanche.getNome());
 		
 		List<IngredienteDTO> ingredientesDTO = lanche.getIngredientes().entrySet().stream()
 				.map(x -> IngredienteDTO.build(x.getKey(), x.getValue()))
@@ -50,6 +48,4 @@ public class LancheDTO {
 	public void setIngredientes(List<IngredienteDTO> ingredientes) {
 		this.ingredientes = ingredientes;
 	}
-
-
 }

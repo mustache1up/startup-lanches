@@ -8,8 +8,6 @@ import br.com.startuplanches.core.entity.Ingrediente;
 
 public class Lanche {
 
-	private Long id;
-	private String nome;
 	private Map<Ingrediente, Integer> ingredientes;
 	
 	public Lanche() {
@@ -40,10 +38,10 @@ public class Lanche {
 		return ingredientes.getOrDefault(ingrediente, 0);
 	}
 
-	public Optional<Ingrediente> ingredientePorNome(String nomeDoIngrediente) {
+	public Optional<Ingrediente> ingredienteContendoPalavra(String nomeDoIngrediente) {
 		
 		return ingredientes.keySet().stream()
-			.filter(x -> x.getNome().equalsIgnoreCase(nomeDoIngrediente))
+			.filter(x -> x.getNome().toLowerCase().contains(nomeDoIngrediente.toLowerCase()))
 			.findFirst();
 	}
 	
@@ -55,22 +53,6 @@ public class Lanche {
 	}
 	
 	//getters e setters	
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public Map<Ingrediente, Integer> getIngredientes() {
 		return ingredientes;

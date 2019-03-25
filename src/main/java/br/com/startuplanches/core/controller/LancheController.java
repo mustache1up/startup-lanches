@@ -19,10 +19,16 @@ public class LancheController {
 	@Autowired
 	private LancheService lancheService;
 	
-    @GetMapping("/api/lanches/")
+    @GetMapping("/api/lanches")
     public List<ItemCardapioDTO> todosItensCardapio() {
     	
 		return lancheService.todosItensCardapio();
+    }
+    
+    @GetMapping("/api/lanches/criar")
+    public DetalhesLancheDTO criar() {
+    	
+    	return lancheService.computaDetalhesLancheVazio();
     }
     
     @PostMapping("/api/lanches/adicionar-ingrediente/{ingredienteId}")

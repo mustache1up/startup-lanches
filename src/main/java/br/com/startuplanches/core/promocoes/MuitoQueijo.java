@@ -16,7 +16,7 @@ public class MuitoQueijo implements Promocao {
 	@Override
 	public double calcularDesconto(Lanche lanche) {
 
-		Optional<Ingrediente> optionalIngrediente = lanche.ingredientePorNome(QUEIJO);
+		Optional<Ingrediente> optionalIngrediente = lanche.ingredienteContendoPalavra(QUEIJO);
 		
 		if (!optionalIngrediente.isPresent()) {
 			return 0;

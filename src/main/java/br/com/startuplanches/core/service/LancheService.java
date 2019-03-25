@@ -74,12 +74,15 @@ public class LancheService {
 		
     	return computaDetalhesLanche(lanche);
 	}
+
+	public DetalhesLancheDTO computaDetalhesLancheVazio() {
+		
+		return computaDetalhesLanche(new Lanche());
+	}
 	
 	private Lanche parseLancheFromItemCardapio(ItemCardapio itemCardapio) {
 		
 		Lanche lanche = new Lanche();
-		lanche.setId(itemCardapio.getId());
-		lanche.setNome(itemCardapio.getNome());
 		
 		Map<Ingrediente, Integer> ingredientes;
 		ingredientes = itemCardapio.getIngredientesItemCardapio().stream()
@@ -96,8 +99,6 @@ public class LancheService {
 		LancheDTO lancheDTO = detalhesLancheDTO.getLanche();
 		
 		Lanche lanche = new Lanche();
-		lanche.setId(lancheDTO.getId());
-		lanche.setNome(lancheDTO.getNome());
 		
 		Map<Ingrediente, Integer> ingredientes = lancheDTO.getIngredientes().stream()
 			.collect(Collectors.toMap(x -> ingredienteService.getIngredienteById(x.getId()), x -> x.getQuantidade()));
