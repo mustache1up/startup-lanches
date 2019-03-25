@@ -6,17 +6,17 @@ public class ItemCardapioDTO {
 
 	private Long id;
 	private String nome;
-	
+
 	public static ItemCardapioDTO build(ItemCardapio itemCardapio) {
 
 		ItemCardapioDTO itemCardapioDTO = new ItemCardapioDTO();
-		
+
 		itemCardapioDTO.setId(itemCardapio.getId());
 		itemCardapioDTO.setNome(itemCardapio.getNome());
-		
+
 		return itemCardapioDTO;
 	}
-	
+
 	// getters e setters
 
 	public Long getId() {

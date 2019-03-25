@@ -18,8 +18,8 @@ public class Lanche {
 	public Double precoBase() {
 		
 		return ingredientes.entrySet().stream()
-				.mapToDouble(x -> x.getKey().getPreco() * x.getValue())
-				.sum();
+			.mapToDouble(x -> x.getKey().getPreco() * x.getValue())
+			.sum();
 	}
 	
 	public void adicionaIngrediente(Ingrediente ingrediente) {
@@ -48,11 +48,11 @@ public class Lanche {
 	public int totalIngredientes() {
 		
 		return ingredientes.values().stream()
-				.mapToInt(x -> x)
-				.sum();
+			.mapToInt(x -> x)
+			.sum();
 	}
 	
-	//getters e setters	
+	// getters e setters	
 
 	public Map<Ingrediente, Integer> getIngredientes() {
 		return ingredientes;

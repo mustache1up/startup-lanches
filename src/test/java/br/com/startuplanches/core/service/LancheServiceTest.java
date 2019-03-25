@@ -1,4 +1,4 @@
-package br.com.startuplanches.core;
+package br.com.startuplanches.core.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -18,10 +18,6 @@ import br.com.startuplanches.core.promocoes.TudoPelaMetadeDoPreco;
 import br.com.startuplanches.core.service.LancheService;
 import br.com.startuplanches.core.service.PromocaoService;
 
-/**
- * Existe uma exceção à regra para o cálculo de preço, quando o lanche pertencer
- * à uma promoção. Cada promoção tem sua regra.
- */
 public class LancheServiceTest {
 
 	LancheService lancheService;
@@ -39,6 +35,7 @@ public class LancheServiceTest {
 	public void setUp() {
 		
 		queijo = new Ingrediente();
+		queijo.setId(1L);
 		queijo.setNome("Queijo");
 		queijo.setPreco(1D);
 		

@@ -14,10 +14,10 @@ public class IngredientesController {
 
 	@Autowired
 	private IngredienteService ingredienteService;
-	
-    @GetMapping("/api/ingredientes/")
-    public List<Ingrediente> ingredientes() {
-    	
+
+	@GetMapping("/api/ingredientes/")
+	public List<Ingrediente> ingredientes() {
+
 		return ingredienteService.todosIngredientes();
-    }
+	}
 }

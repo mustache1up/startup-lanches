@@ -4,8 +4,8 @@ public class PromocaoAplicadaDTO {
 
 	private String nome;
 	private Double desconto;
-	
-	//getters e setters:
+
+	// getters e setters:
 
 	public String getNome() {
 		return nome;

@@ -8,11 +8,11 @@ public class DetalhesLancheDTO {
 	private LancheDTO lanche;
 	private List<PromocaoAplicadaDTO> promocoesAplicadas;
 	private Double precoFinal;
-	
+
 	public DetalhesLancheDTO() {
 		promocoesAplicadas = new ArrayList<>();
 	}
-	
+
 	// getters e setters:
 
 	public LancheDTO getLanche() {

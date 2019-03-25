@@ -1,4 +1,4 @@
-package br.com.startuplanches.core;
+package br.com.startuplanches.core.model;
 
 import static org.junit.Assert.*;
 
@@ -7,10 +7,7 @@ import org.junit.Test;
 import br.com.startuplanches.core.entity.Ingrediente;
 import br.com.startuplanches.core.model.Lanche;
 
-/**
- * O valor de cada opção do cardápio é dado pela soma dos ingredientes que compõe o lanche.
- */
-public class ValorLancheCardapioTest {
+public class LancheTest {
 
 	private static final double DELTA = 0.000_000_001;
 

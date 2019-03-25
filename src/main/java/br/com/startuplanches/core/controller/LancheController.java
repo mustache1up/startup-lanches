@@ -18,28 +18,29 @@ public class LancheController {
 
 	@Autowired
 	private LancheService lancheService;
-	
-    @GetMapping("/api/lanches")
-    public List<ItemCardapioDTO> todosItensCardapio() {
-    	
+
+	@GetMapping("/api/lanches")
+	public List<ItemCardapioDTO> todosItensCardapio() {
+
 		return lancheService.todosItensCardapio();
-    }
-    
-    @GetMapping("/api/lanches/criar")
-    public DetalhesLancheDTO criar() {
-    	
-    	return lancheService.computaDetalhesLancheVazio();
-    }
-    
-    @PostMapping("/api/lanches/adicionar-ingrediente/{ingredienteId}")
-    public DetalhesLancheDTO adicionarIngrediente(@RequestBody DetalhesLancheDTO detalhesLancheDTO, @PathVariable Long ingredienteId) {
-    	
-    	return lancheService.adicionarIngrediente(detalhesLancheDTO, ingredienteId);
-    }
-    
-    @GetMapping("/api/lanches/{itemCardapioId}")
-    public DetalhesLancheDTO itemCardapio(@PathVariable Long itemCardapioId) {
-    	
-    	return lancheService.computaDetalhesLancheById(itemCardapioId);
-    }
+	}
+
+	@GetMapping("/api/lanches/criar")
+	public DetalhesLancheDTO criar() {
+
+		return lancheService.computaDetalhesLancheVazio();
+	}
+
+	@PostMapping("/api/lanches/adicionar-ingrediente/{ingredienteId}")
+	public DetalhesLancheDTO adicionarIngrediente(@RequestBody DetalhesLancheDTO detalhesLancheDTO,
+			@PathVariable Long ingredienteId) {
+
+		return lancheService.adicionarIngrediente(detalhesLancheDTO, ingredienteId);
+	}
+
+	@GetMapping("/api/lanches/{itemCardapioId}")
+	public DetalhesLancheDTO itemCardapio(@PathVariable Long itemCardapioId) {
+
+		return lancheService.computaDetalhesLancheById(itemCardapioId);
+	}
 }

@@ -10,7 +10,7 @@ public class IngredienteDTO {
 	private Integer quantidade;
 
 	public static IngredienteDTO build(Ingrediente ingrediente, Integer quantidade) {
-		
+
 		IngredienteDTO ingredienteDTO = new IngredienteDTO();
 		ingredienteDTO.setId(ingrediente.getId());
 		ingredienteDTO.setNome(ingrediente.getNome());
@@ -18,17 +18,17 @@ public class IngredienteDTO {
 		ingredienteDTO.setQuantidade(quantidade);
 		return ingredienteDTO;
 	}
-	
-	//getters e setters:
-	
+
+	// getters e setters:
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getNome() {
 		return nome;
 	}
