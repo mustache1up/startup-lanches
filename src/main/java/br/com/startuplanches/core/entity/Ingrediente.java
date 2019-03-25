@@ -1,7 +1,9 @@
 package br.com.startuplanches.core.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Ingrediente {
@@ -11,20 +13,22 @@ public class Ingrediente {
 	private String nome;
 	private Double preco;
 
-	//getters, setters, equals, hashcode:
-	
+	@OneToMany(mappedBy = "ingrediente", cascade = CascadeType.ALL, orphanRemoval = true)
+
+	// getters, setters, equals, hashcode:
+
 	public Long getId() {
 		return id;
 	}
-	
+
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public Double getPreco() {
 		return preco;
 	}
-	
+
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
