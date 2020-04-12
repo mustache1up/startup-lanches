@@ -3,6 +3,7 @@
 
 <head>
   <title>Startup Lanches</title>
+  <meta charset="UTF-8">
   <script src="/js/jquery/jquery-3.3.1.min.js"></script>
 </head>
 
@@ -11,7 +12,7 @@
     <h1>Startup Lanche</h1>
     
     <div v-if="detalhesLanche.lanche == null" id="opcoes-cardapio">
-	  <p>Opções do Cardápio</p>
+	  <p>OpÃ§Ãµes do CardÃ¡pio</p>
 	  <ul>
 	    <li v-for="opcao in opcoesCardapio">
 	      <a href="#" @click="mostraDetalhesLanche(opcao.id)"> 
@@ -41,7 +42,7 @@
       <br />
       <br />
       <div  v-if="detalhesLanche.promocoesAplicadas.length > 0">
-	    Promoções aplicadas:
+	    PromoÃ§Ãµes aplicadas:
 	    <br />
 	    <ul>
 	      <li v-for="promocao in detalhesLanche.promocoesAplicadas">
@@ -49,10 +50,10 @@
 	      </li>
 	    </ul>
 	  </div>
-      Preço do lanche: {{ detalhesLanche.precoFinal | monetario }}
+      PreÃ§o do lanche: {{ detalhesLanche.precoFinal | monetario }}
       <br />
       <br />
-      <a href="#" @click="limpaDetalhesLanche()">Voltar ao início</a>
+      <a href="#" @click="limpaDetalhesLanche()">Voltar ao inÃ­cio</a>
     </div>
   </div>
   
